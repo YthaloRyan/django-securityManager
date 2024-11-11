@@ -26,6 +26,11 @@
                 </a>
                     <!-- User account options -->
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        {% for group in user.groups.all %}
+                            {% if group.name == 'Admin' %}
+                                <li><a class="dropdown-item" href="/accounts/teams/">Admin</a></li>
+                            {% endif%}
+                        {% endfor %} 
                         <li><a class="dropdown-item" href="/accounts/profile/">Profile</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="/accounts/logout/">Log out</a></li>

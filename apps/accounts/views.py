@@ -4,6 +4,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from .forms import CustomUserCreationForm, LoginForm
 from django.contrib.auth.decorators import login_required
 
+from .decorators import group_required
+
 
 def register_view(request):
     if request.user.is_authenticated:
@@ -37,22 +39,24 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     
-    return redirect('/home/')
+    return redirect('/accounts/login/')
 
-@login_required
+
+
+@group_required('Admin')
 def show_teams(request):
     teams = ['soc', 'blue', 'red', 'admin']
     
     return render(request, 'accounts/teams/list_teams.html', {'teams': teams})
 
-@login_required
+@group_required('Admin')
 def create_team(request):
     pass
 
-@login_required
+@group_required('Admin')
 def delete_team(request):
     pass
 
-@login_required
+@group_required('Admin')
 def update_team(request):
     pass
