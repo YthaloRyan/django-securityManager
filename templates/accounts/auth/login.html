@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'accounts/css/auth_base.css'%}">
+{% endblock %}
+
+{% block content %}
+    
+
+    <div class="container">
+        <h1>LOGIN</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            
+            <button type="submit" class="btn btn-primary">Login</button>
+                
+        </form>
+        <hr>
+        <p>Need a account? <a href="/accounts/register/">Signup</a></p>
+    </div>
+{% endblock %}
