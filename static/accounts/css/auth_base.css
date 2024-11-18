@@ -2,7 +2,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: start;
-    min-height: 100vh; /* Faz o body ocupar toda a altura da janela */
+    min-height: 100vh;
     padding-top: 50px;
     padding-bottom: 50px;
 }

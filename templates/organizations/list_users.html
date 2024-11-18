@@ -1,0 +1,39 @@
+<table class="table">
+    <thead>
+        <tr>
+            {% if auth %}
+                <th scope="col"><a href="add">
+                    Add User
+                </a></th>
+            {% else %}
+                <th scope="col"></th>
+            {% endif %}
+            <th scope="col">Usename</th>
+            <th scope="col">Organizations</th>
+            {% if auth %}
+                <th scope="col">Actions</th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+            <tr>
+            
+                <th scope="row"></th>
+                <td>{{ user.username }}</td>
+                <td>tmp</td>
+                {% if auth %}
+                    <td>
+                        <div>
+                            <a href="add">edit</a>
+                            <a href="add">remove</a>
+                        </div>
+                    </td>
+                {% endif %}
+                
+            
+            </tr>
+        {% endfor %}
+    </tbody>
+    
+</table>
