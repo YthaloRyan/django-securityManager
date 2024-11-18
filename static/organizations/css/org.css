@@ -1,10 +1,24 @@
 .sidebar {
     background-color: #21272c;
     width: 250px;
-    min-height: 94vh;
+    height: 94vh;
     text-align: center;
     flex-shrink: 0;
+    overflow-y: auto; /* Adiciona scroll vertical */
+    
 }
+
+/* .sidebar {
+    width: max-content;
+    height: 100vh;
+    padding: 10px;
+    position: fixed;
+    z-index: -1;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    overflow-y: auto;
+    
+} */
 
 .orgs {
     word-break: break-word;
@@ -48,6 +62,12 @@
 }
 
 .org-link:hover {
-    border: 2px solid darkslategray;
+    border: 2px solid rgb(61, 102, 102);
     
+}
+
+.actual-org-container {
+    display: flex;
+    justify-content: space-between; /* Espaço entre os elementos */
+    align-items: center; /* Alinha os itens verticalmente */
 }

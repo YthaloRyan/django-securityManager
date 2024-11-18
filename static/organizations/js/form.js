@@ -47,8 +47,6 @@ window.addEventListener("load", async function() {
     if (localStorage.getItem("requestForm") === "true") {
         localStorage.removeItem("requestForm");
 
-        const data = await httpGet('/organizations/create_org');
-
-        document.querySelector('.org-table').innerHTML = data;
+        getForm('/organizations/create_org');
     }
 });

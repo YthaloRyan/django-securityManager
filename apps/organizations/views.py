@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse, HttpResponseBadRequest
 
 from django.shortcuts import render, get_object_or_404
 
@@ -61,3 +62,17 @@ def create_organization(request):
         
     
     return render(request, 'organizations/create_user.html', {'form': form})
+
+
+@login_required
+def delete_organization(request, org):
+    if request.method == "DELETE":
+        try:
+            print(org)
+            organization = get_object_or_404(Organization, name=org)
+    
+            organization.delete()
+            return JsonResponse({"message": "Item deletado com sucesso."})
+        except Organization.DoesNotExist:
+            return JsonResponse({"error": "Item não encontrado."}, status=404)
+    return HttpResponseBadRequest("Método não permitido")
