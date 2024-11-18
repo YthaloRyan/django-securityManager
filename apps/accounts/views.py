@@ -40,23 +40,3 @@ def logout_view(request):
     logout(request)
     
     return redirect('/accounts/login/')
-
-
-
-@group_required('Admin')
-def show_teams(request):
-    teams = ['soc', 'blue', 'red', 'admin']
-    
-    return render(request, 'accounts/teams/list_teams.html', {'teams': teams})
-
-@group_required('Admin')
-def create_team(request):
-    pass
-
-@group_required('Admin')
-def delete_team(request):
-    pass
-
-@group_required('Admin')
-def update_team(request):
-    pass

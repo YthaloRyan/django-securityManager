@@ -10,7 +10,7 @@ class OrgCreationForm(forms.ModelForm):
         fields = ['name', 'description', 'org_admin']
         
         widgets = {
-            'tags': forms.CheckboxSelectMultiple,  # Para exibir opções como checkboxes
+            'tags': forms.CheckboxSelectMultiple,
         }
         
     def __init__(self, *args, **kwargs):
