@@ -24,24 +24,29 @@ def organizations(request):
 
 
 @login_required
-def get_organizations_users(request, org):
-    auth = False
+def get_organizations_users(request, org_name):
     actual_user = get_object_or_404(User, username=request.user)
-    actual_user_organizations = actual_user.organizations.all()
+    actual_user_organizations = actual_user.groups.all()
+    
     
     roles = ["Admin", "OrgAdmin"]
     auth = any(org.name in roles for org in actual_user_organizations)
     
     
-    organization = get_object_or_404(Organization, name=org)
+    organization = get_object_or_404(Organization, name=org_name)
+    
     
     users = organization.users.all()
     
+    org_admins = organization.org_admin.all()
+    
     infos = {
         'users': users,
-        'org': org,
+        'org': org_name,
+        'org_admins': org_admins,
         'auth': auth,
     }
+    
     return render(request, 'organizations/list_users.html', infos)
 
 
@@ -53,15 +58,15 @@ def create_organization(request):
         if form.is_valid():
             form.save()
             
-            return render(request, 'organizations/create_user.html', {'form': form})
+            return render(request, 'organizations/create_org.html', {'form': form})
         
         else:
-            return render(request, 'organizations/create_user.html', {'form': form}, status=400)
+            return render(request, 'organizations/create_org.html', {'form': form}, status=400)
         
         
         
     
-    return render(request, 'organizations/create_user.html', {'form': form})
+    return render(request, 'organizations/create_org.html', {'form': form})
 
 
 @login_required

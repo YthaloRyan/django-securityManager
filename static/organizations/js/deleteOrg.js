@@ -24,16 +24,16 @@ window.deleteOrg = async function (org)  {
             return response.json();
         } else {
             console.log(Error);
-            throw new Error("Erro ao deletar o item.");
+            throw new Error("Error deleting item.");
         }
     })
     .then(data => {
         console.log(data.message);
-        alert("Item deletado com sucesso!");
+        alert("Item deleted successfully!");
     })
     .catch(error => {
         console.error("Erro:", error);
-        alert("Ocorreu um erro ao deletar o item.");
+        alert("An error occurred while deleting the item.");
     });
 
     location.reload();

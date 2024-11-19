@@ -23,6 +23,25 @@
         </tr>
     </thead>
     <tbody>
+        {% for org_admin in org_admins %}
+            <tr>
+            
+                <th scope="row"></th>
+                <td><h2>{{ org_admin.username }}</h2></td>
+                <td>tmp</td>
+                {% if auth %}
+                    <td>
+                        <div>
+                            <a href="add">edit</a>
+                            <a href="add">remove</a>
+                        </div>
+                    </td>
+                {% endif %}
+                
+            
+            </tr>
+        {% endfor %}
+        
         {% for user in users %}
             <tr>
             

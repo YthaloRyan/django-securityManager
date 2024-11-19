@@ -1,9 +1,12 @@
 import { httpGet } from '/static/js/utils.js';
 
 
+
 async function formListener(){
-    document.getElementById('loginForm').addEventListener('submit', async function (event) {
+    document.getElementById('orgForm').addEventListener('submit', async function (event) {
         event.preventDefault(); // Impede o envio padrão do formulário
+
+        
 
         const form = event.target;
         const formData = new FormData(form);
@@ -29,13 +32,23 @@ async function formListener(){
                 formListener();
             }
         } catch (error) {
-            console.error('Erro inesperado:', error);
+            console.error('unexpected error:', error);
         }
     });
 }
 
 
 window.getForm = async function (theUrl) {
+    const elements = document.querySelectorAll('.org-link.activated');
+
+    elements.forEach((element) => {
+    if (element.id !== 'org-form') {
+        element.classList.remove('activated');
+        console.log(`Classe 'activated' removida do elemento com ID: ${element.id}`);
+    }
+    });
+
+
     const data = await httpGet(theUrl);
 
     document.querySelector('.org-table').innerHTML = data;
