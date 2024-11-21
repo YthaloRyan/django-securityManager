@@ -1,5 +1,5 @@
 <div class="org-form">
-  <form id="orgForm" method="post" onclick="formListener();" action="/organizations/create_org/">
+  <form id="orgForm" method="post" action="/organizations/create_org/">
     {% csrf_token %}
     {{ form.as_p }}
     

@@ -17,7 +17,7 @@
             <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
                     <!-- dinamic org creation form -->
-                    <a class="org-link activated" id="org-form" onclick="getForm('/organizations/create_org');">Create Org</a>
+                    <a class="org-link activated" id="org-form" onclick="getCreateOrgForm('/organizations/create_org/');">Create Org</a>
                     <hr>
                     <!-- list all organizations -->
                     {% for org in organizations %}
@@ -40,7 +40,9 @@
 
 
     <script type="module" src="{% static 'organizations/js/orgs.js' %}" defer></script>
-    <script type="module" src="{% static 'organizations/js/form.js' %}" defer></script>
+    <script type="module" src="{% static 'organizations/js/createOrg.js' %}" defer></script>
     <script type="module" src="{% static 'organizations/js/deleteOrg.js' %}" defer></script>
+    <script type="module" src="{% static 'organizations/js/deleteUser.js' %}" defer></script>
+    <script type="module" src="{% static 'organizations/js/addUser.js' %}" defer></script>
     
 {% endblock %}

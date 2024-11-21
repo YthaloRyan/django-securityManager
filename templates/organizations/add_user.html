@@ -1,13 +1,9 @@
 <h1>{{org}}</h1>
 <div class="org-form">
-    <form id="orgForm" method="post" action="/organizations/add_users/{{org}}">
+    <form id="addUserForm" method="post" action="/organizations/add_users/{{org}}">
       {% csrf_token %}
       {{ form.as_p }}
       
       <button type="submit" class="btn btn-org-create btn-primary">Add Users</button>
     </form>
 </div>
-
-<!-- {% for user in users %}
-    <p>{{user}}</p>
-{% endfor %} -->

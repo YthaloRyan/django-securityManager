@@ -12,7 +12,7 @@
         <tr>
             <!-- if admin or orgadmin add user button -->
             {% if auth %}
-                <th scope="col"><a class="btn btn-success" href="/organizations/add_users/{{org}}">
+                <th scope="col"><a class="btn btn-success" onclick="getAddUserForm('/organizations/add_users/{{org}}', '{{org}}')">
                     Add User
                 </a></th>
             {% else %}
@@ -21,7 +21,7 @@
 
 
             <th scope="col">Usename</th>
-            <th scope="col">Organizations</th>
+            <th scope="col">Groups</th>
 
             <!-- if admin or orgadmin add actions -->
             {% if auth %}
@@ -38,11 +38,11 @@
                 <td>OrgAdmin</td>
 
                 <!-- if admin or orgadmin add actions -->
-                {% if request. %}
+                {% if auth %}
                     <td>
                         <div>
-                            <a class="btn btn-outline-secondary" href="add">edit</a>
-                            <a class="btn btn-outline-secondary" href="add">remove</a>
+                            <button class="btn btn-outline-secondary" href="add">edit</button>
+                            <button class="btn btn-outline-secondary" href="add">remove</button>
                         </div>
                     </td>
                 {% endif %}
@@ -62,8 +62,8 @@
                 {% if auth %}
                     <td>
                         <div>
-                            <a class="btn btn-outline-secondary" href="add">edit</a>
-                            <a class="btn btn-outline-secondary" href="add">remove</a>
+                            <button class="btn btn-outline-secondary" href="add">edit</button>
+                            <button class="btn btn-outline-secondary" onclick="deleteUser('{{org}}', '{{user}}')">remove</button>
                         </div>
                     </td>
                 {% endif %}

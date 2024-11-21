@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponseBadRequest
 
@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from .models import Organization
 
 
-from django.db.models import Q
+
 
 from .forms import OrgCreationForm, AddUserForm
 
@@ -20,14 +20,9 @@ from .forms import OrgCreationForm, AddUserForm
 
 
 #VIEWS
-# Create your views here.
 @login_required
 def organizations(request):
     organizations = Organization.objects.all()
-    
-    for org in organizations:
-        print(org)
-        print('='*20)
     
     infos = {
         'organizations': organizations,
@@ -71,7 +66,7 @@ def create_organization(request):
         if form.is_valid():
             form.save()
             
-            return render(request, 'organizations/create_org.html', {'form': form})
+            
         
         else:
             return render(request, 'organizations/create_org.html', {'form': form}, status=400)
@@ -84,7 +79,6 @@ def create_organization(request):
 def delete_organization(request, org):
     if request.method == "DELETE":
         try:
-            print(org)
             organization = get_object_or_404(Organization, name=org)
     
             organization.delete()
@@ -94,8 +88,11 @@ def delete_organization(request, org):
     return HttpResponseBadRequest("Método não permitido")
 
 
+
+
 @login_required
 def add_users_by_org(request, org):
+    print('Opa errado')
     organization = get_object_or_404(Organization, name=org)
     
     form = AddUserForm(request.POST,organization=org,instance=organization or None)
@@ -116,4 +113,18 @@ def add_users_by_org(request, org):
     }
     
     return render(request, 'organizations/add_user.html', infos)
+
+def delete_user_from_org(request, org, username):
+    print('Opa')
+    if request.method == "DELETE":
+        try:
+            user = get_object_or_404(User, username=username)
+            organization = get_object_or_404(Organization, name=org)
+            
+            organization.users.remove(user)
+    
+            return JsonResponse({"message": "Item deletado com sucesso."})
+        except Organization.DoesNotExist:
+            return JsonResponse({"error": "Item não encontrado."}, status=404)
+    return HttpResponseBadRequest("Método não permitido")
     
