@@ -1,39 +1,48 @@
 <div class="actual-org-container">
     <h1>{{ org }}</h1>
 
-    <button class="btn btn-danger" onclick="deleteOrg('{{org}}')">Delete Org</button>
+    {% if auth %}
+        <button class="btn btn-danger" onclick="deleteOrg('{{org}}')">Delete Org</button>
+    {% endif %}
 </div>
 
 
 <table class="table">
     <thead>
         <tr>
+            <!-- if admin or orgadmin add user button -->
             {% if auth %}
-                <th scope="col"><a href="add">
+                <th scope="col"><a class="btn btn-success" href="/organizations/add_users/{{org}}">
                     Add User
                 </a></th>
             {% else %}
                 <th scope="col"></th>
             {% endif %}
+
+
             <th scope="col">Usename</th>
             <th scope="col">Organizations</th>
+
+            <!-- if admin or orgadmin add actions -->
             {% if auth %}
                 <th scope="col">Actions</th>
             {% endif %}
         </tr>
     </thead>
     <tbody>
+        <!-- admins of the organization loop -->
         {% for org_admin in org_admins %}
             <tr>
-            
                 <th scope="row"></th>
                 <td><h2>{{ org_admin.username }}</h2></td>
-                <td>tmp</td>
-                {% if auth %}
+                <td>OrgAdmin</td>
+
+                <!-- if admin or orgadmin add actions -->
+                {% if request. %}
                     <td>
                         <div>
-                            <a href="add">edit</a>
-                            <a href="add">remove</a>
+                            <a class="btn btn-outline-secondary" href="add">edit</a>
+                            <a class="btn btn-outline-secondary" href="add">remove</a>
                         </div>
                     </td>
                 {% endif %}
@@ -42,17 +51,19 @@
             </tr>
         {% endfor %}
         
+        <!-- users of the organization loop -->
         {% for user in users %}
             <tr>
-            
                 <th scope="row"></th>
                 <td>{{ user.username }}</td>
                 <td>tmp</td>
+
+                <!-- if admin or orgadmin add actions -->
                 {% if auth %}
                     <td>
                         <div>
-                            <a href="add">edit</a>
-                            <a href="add">remove</a>
+                            <a class="btn btn-outline-secondary" href="add">edit</a>
+                            <a class="btn btn-outline-secondary" href="add">remove</a>
                         </div>
                     </td>
                 {% endif %}

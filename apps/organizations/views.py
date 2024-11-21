@@ -9,12 +9,25 @@ from django.contrib.auth.models import User
 from .models import Organization
 
 
-from .forms import OrgCreationForm
+from django.db.models import Q
 
+from .forms import OrgCreationForm, AddUserForm
+
+
+#UTILS
+
+    
+
+
+#VIEWS
 # Create your views here.
 @login_required
 def organizations(request):
     organizations = Organization.objects.all()
+    
+    for org in organizations:
+        print(org)
+        print('='*20)
     
     infos = {
         'organizations': organizations,
@@ -64,8 +77,6 @@ def create_organization(request):
             return render(request, 'organizations/create_org.html', {'form': form}, status=400)
         
         
-        
-    
     return render(request, 'organizations/create_org.html', {'form': form})
 
 
@@ -81,3 +92,28 @@ def delete_organization(request, org):
         except Organization.DoesNotExist:
             return JsonResponse({"error": "Item não encontrado."}, status=404)
     return HttpResponseBadRequest("Método não permitido")
+
+
+@login_required
+def add_users_by_org(request, org):
+    organization = get_object_or_404(Organization, name=org)
+    
+    form = AddUserForm(request.POST,organization=org,instance=organization or None)
+    
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            
+            return redirect('/organizations')
+        
+        else:
+            return render(request, 'organizations/add_user.html', {'form': form}, status=400)
+    
+    
+    infos = {
+        'org': org,
+        'form': form,
+    }
+    
+    return render(request, 'organizations/add_user.html', infos)
+    

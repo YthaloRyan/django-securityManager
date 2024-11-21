@@ -7,9 +7,7 @@
 
     <link rel="stylesheet" href="{% static 'organizations/css/org.css' %}">
     <link rel="stylesheet" href="{% static 'organizations/css/container-orgs.css' %}">
-    
-    
-    
+    <link rel="stylesheet" href="{% static 'organizations/css/org-form-btn.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -18,27 +16,25 @@
             
             <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
+                    <!-- dinamic org creation form -->
                     <a class="org-link activated" id="org-form" onclick="getForm('/organizations/create_org');">Create Org</a>
                     <hr>
-                    
-                        {% for org in organizations %}
-                            
+                    <!-- list all organizations -->
+                    {% for org in organizations %}
+                        {% if org %}
                             <a class="org-link orgs" id="{{org}}" onclick="getOrg('/organizations/users/{{org}}', this.id);">
                                 {{ org }}
-                                
                             </a>
-                                
-                                
-                            
-                            
-                        
-                        {% endfor %}
+                        {% endif %}
+            
+                    {% endfor %}
                     
                     
                 </li>
             </ul>
         </div>
 
+        <!-- a div that receives the fetch result -->
         <div class="container org-table"></div>
     </div>
 

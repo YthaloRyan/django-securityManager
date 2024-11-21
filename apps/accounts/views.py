@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.forms import AuthenticationForm
-from .forms import CustomUserCreationForm, LoginForm
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login, logout
 
-from .decorators import group_required
+from .forms import CustomUserCreationForm, LoginForm
+
+
+
 
 
 def register_view(request):
@@ -35,6 +35,7 @@ def login_view(request):
             return redirect("/home/")
         
     return render(request, 'accounts/auth/login.html', {'form': form })
+
 
 def logout_view(request):
     logout(request)

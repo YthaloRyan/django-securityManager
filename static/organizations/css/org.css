@@ -71,3 +71,7 @@
     justify-content: space-between; /* Espaço entre os elementos */
     align-items: center; /* Alinha os itens verticalmente */
 }
+
+.org-table {
+    padding-top: 20px;
+}

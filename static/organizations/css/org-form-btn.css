@@ -1,0 +1,10 @@
+.btn-org-create {
+    border-color: darkslategray;
+    background-color: darkslategray;
+    border-width: 3px;
+    font-size: 20px;
+    color: white;
+    --bs-btn-hover-bg: 212529;
+    --bs-btn-hover-border-color: darkslategray;
+    width: 100%;
+}
