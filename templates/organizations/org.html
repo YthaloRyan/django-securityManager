@@ -22,7 +22,7 @@
                     <!-- list all organizations -->
                     {% for org in organizations %}
                         {% if org %}
-                            <a class="org-link orgs" id="{{org}}" onclick="getOrg('/organizations/users/{{org}}', this.id);">
+                            <a class="org-link orgs" id="{{org}}" onclick="getOrg('{{org}}');">
                                 {{ org }}
                             </a>
                         {% endif %}

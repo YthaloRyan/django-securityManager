@@ -53,7 +53,7 @@ export async function httpDelete(theUrl)  {
     location.reload();
 }
 
-export async function formListener(id, inner_path, save = true){
+export async function formListener(id, inner_path, save = true, info = 'true'){
     document.getElementById(id).addEventListener('submit', async function (event) {
         event.preventDefault(); // Impede o envio padrão do formulário
 
@@ -73,7 +73,7 @@ export async function formListener(id, inner_path, save = true){
             
             if (response.ok) {
                 if (save) {
-                    localStorage.setItem(`${id}-storage`, "true");
+                    localStorage.setItem(`${id}-storage`, info);
                 }
 
                 location.reload();
@@ -92,10 +92,12 @@ export async function formListener(id, inner_path, save = true){
 
 
 window.addEventListener("load", async function() {
-    if (localStorage.getItem('globalOrg')) {
-        const savedOrg = localStorage.getItem('globalOrg');
+    const addUserStorage = 'addUserForm-storage'
+
+    if (localStorage.getItem(addUserStorage)) {
+        const savedOrg = localStorage.getItem(addUserStorage);
         
-        localStorage.removeItem('globalOrg');
+        localStorage.removeItem(addUserStorage);
 
         const data = await httpGet(`/organizations/users/${savedOrg}`);
         document.querySelector('.org-table').innerHTML = data;  
