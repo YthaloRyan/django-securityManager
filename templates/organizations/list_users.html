@@ -13,7 +13,7 @@
             <!-- if admin or orgadmin add user button -->
             {% if auth %}
                 <th scope="col"><a class="btn btn-success" onclick="getAddUserForm('/organizations/add_users/{{org}}', '{{org}}')">
-                    Add User
+                    Add Users
                 </a></th>
             {% else %}
                 <th scope="col"></th>
@@ -30,46 +30,33 @@
         </tr>
     </thead>
     <tbody>
-        <!-- admins of the organization loop -->
-        {% for org_admin in org_admins %}
-            <tr>
-                <th scope="row"></th>
-                <td><h2>{{ org_admin.username }}</h2></td>
-                <td>OrgAdmin</td>
+        <!-- loop in orgadmins and users -->
+        {% for role, users in roles.items %}
+            {% for user in users %}
+                <tr>
+                    <th scope="row"></th>
+                        {% if role == 'admins' %}
+                            <td><h2>{{ user }}</h2></td>
+                        
+                        {% else %}
+                            <td>{{ user }}</td>
+                        
+                        {% endif %}
+                    <td>tmp</td>
 
-                <!-- if admin or orgadmin add actions -->
-                {% if auth %}
-                    <td>
-                        <div>
-                            <button class="btn btn-outline-secondary" href="add">edit</button>
-                            <button class="btn btn-outline-secondary" href="add">remove</button>
-                        </div>
-                    </td>
-                {% endif %}
+                    <!-- if admin or orgadmin add actions -->
+                    {% if auth %}
+                        <td>
+                            <div>
+                                <button class="btn btn-outline-secondary" href="add">edit</button>
+                                <button class="btn btn-outline-secondary" onclick="deleteUser('{{org}}', '{{user}}')">remove</button>
+                            </div>
+                        </td>
+                    {% endif %}
+                    
                 
-            
-            </tr>
-        {% endfor %}
-        
-        <!-- users of the organization loop -->
-        {% for user in users %}
-            <tr>
-                <th scope="row"></th>
-                <td>{{ user.username }}</td>
-                <td>tmp</td>
-
-                <!-- if admin or orgadmin add actions -->
-                {% if auth %}
-                    <td>
-                        <div>
-                            <button class="btn btn-outline-secondary" href="add">edit</button>
-                            <button class="btn btn-outline-secondary" onclick="deleteUser('{{org}}', '{{user}}')">remove</button>
-                        </div>
-                    </td>
-                {% endif %}
-                
-            
-            </tr>
+                </tr>
+            {% endfor %}
         {% endfor %}
     </tbody>
     

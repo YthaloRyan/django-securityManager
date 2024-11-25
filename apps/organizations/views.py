@@ -32,7 +32,7 @@ def organizations(request):
 
 
 @login_required
-def get_organizations_users(request, org_name):
+def get_organization_users(request, org_name):
     actual_user = get_object_or_404(User, username=request.user)
     actual_user_organizations = actual_user.groups.all()
     
@@ -44,14 +44,17 @@ def get_organizations_users(request, org_name):
     organization = get_object_or_404(Organization, name=org_name)
     
     
-    users = organization.users.all()
-    
+    org_users = organization.users.all()
     org_admins = organization.org_admin.all()
     
+    users_roles = {
+        'admins': org_admins,
+        'users': org_users
+    }
+    
     infos = {
-        'users': users,
+        'roles': users_roles,
         'org': org_name,
-        'org_admins': org_admins,
         'auth': auth,
     }
     
@@ -92,16 +95,19 @@ def delete_organization(request, org):
 
 @login_required
 def add_users_by_org(request, org):
-    print('Opa errado')
     organization = get_object_or_404(Organization, name=org)
     
     form = AddUserForm(request.POST,organization=org,instance=organization or None)
     
     if request.method == 'POST':
         if form.is_valid():
-            form.save()
+            users = form.cleaned_data['users']
             
-            return redirect('/organizations')
+            organization.users.add(*users)
+                
+            
+            
+            return get_organization_users(request, org)
         
         else:
             return render(request, 'organizations/add_user.html', {'form': form}, status=400)
@@ -114,6 +120,7 @@ def add_users_by_org(request, org):
     
     return render(request, 'organizations/add_user.html', infos)
 
+@login_required
 def delete_user_from_org(request, org, username):
     print('Opa')
     if request.method == "DELETE":

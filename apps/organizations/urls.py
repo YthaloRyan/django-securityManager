@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     path('', views.organizations),
-    path('users/<str:org_name>', views.get_organizations_users),
+    path('users/<str:org_name>', views.get_organization_users),
     path('create_org/', views.create_organization),
     path('delete_org/<str:org>', views.delete_organization),
     path('add_users/<str:org>', views.add_users_by_org),
