@@ -34,7 +34,6 @@
         {% for role, users in roles.items %}
             {% for user in users %}
                 <tr>
-                    <th scope="row"></th>
                         {% if role == 'admins' %}
                             <td><h2>{{ user }}</h2></td>
                         
@@ -48,7 +47,7 @@
                     {% if auth %}
                         <td>
                             <div>
-                                <button class="btn btn-outline-secondary" href="add">edit</button>
+                                <button class="btn btn-outline-secondary" onclick="getAddUserForm('edit_user/{{org}}/{{user}}', '{{org}}')">edit</button>
                                 <button class="btn btn-outline-secondary" onclick="deleteUser('{{org}}', '{{user}}')">remove</button>
                             </div>
                         </td>

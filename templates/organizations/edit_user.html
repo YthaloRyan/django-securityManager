@@ -1,0 +1,28 @@
+<style>
+    #id_users {
+      height: 400px;
+    }
+  </style>
+  
+  <div class="container">
+    <div class="row align-items-start">
+      <div class="col">
+        <button type="button" id="{{org}}" onclick="backToOrg('{{org}}')" 
+        class="btn btn-outline-info"><- Go Back</button>
+      </div>
+      <div class="col">
+        <h1>{{org}}</h1>
+      </div>
+    </div>
+  
+    
+  </div>
+  
+  <div class="org-form">
+      <form id="addUserForm" method="post" action="/organizations/add_users/{{org}}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        
+        <button type="submit" class="btn btn-org-create btn-primary">Add Users</button>
+      </form>
+  </div>

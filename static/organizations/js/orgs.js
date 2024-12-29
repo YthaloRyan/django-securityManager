@@ -22,8 +22,7 @@ window.getOrg = async function (org) {
 }
 
 
-window.addUserBack = async function (org) {
+window.backToOrg = async function (org) {
     getOrg(org);
 
-    
 }

@@ -5,8 +5,6 @@ from .forms import CustomUserCreationForm, LoginForm
 
 
 
-
-
 def register_view(request):
     if request.user.is_authenticated:
         return redirect("/home/")

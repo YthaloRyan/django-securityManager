@@ -1,7 +1,9 @@
 from django import forms
 
 
-from .models import Organization, User
+from .models import Organization
+from django.contrib.auth.models import Group, User
+
 
 from django.db.models import Q
 
@@ -54,3 +56,30 @@ class AddUserForm(forms.ModelForm):
             
         for field_name in self.fields:
             self.fields[field_name].widget.attrs['class'] = 'form-control form-control-lg'
+            
+            
+class EditUserForm(forms.ModelForm):
+    username = forms.CharField(
+        max_length=255, 
+        widget=forms.TextInput(attrs={'class': 'form-control form-control-lg'}))
+    
+    groups = forms.ModelMultipleChoiceField(
+        queryset=Group.objects.all(),
+        required=True
+    )
+    
+    
+    class Meta:
+        model = User
+        fields = ['username', 'groups']
+        
+        
+        widgets = {
+            'tags': forms.CheckboxSelectMultiple,
+        }
+        
+    def __init__(self, *args, **kwargs):
+        super(EditUserForm, self).__init__(*args, **kwargs)
+        for field_name in self.fields:
+            self.fields[field_name].widget.attrs['class'] = 'form-control form-control-lg'
+        

@@ -11,7 +11,7 @@ from .models import Organization
 
 
 
-from .forms import OrgCreationForm, AddUserForm
+from .forms import OrgCreationForm, AddUserForm, EditUserForm
 
 
 #UTILS
@@ -122,7 +122,6 @@ def add_users_by_org(request, org):
 
 @login_required
 def delete_user_from_org(request, org, username):
-    print('Opa')
     if request.method == "DELETE":
         try:
             user = get_object_or_404(User, username=username)
@@ -134,4 +133,31 @@ def delete_user_from_org(request, org, username):
         except Organization.DoesNotExist:
             return JsonResponse({"error": "Item não encontrado."}, status=404)
     return HttpResponseBadRequest("Método não permitido")
+
+
+
+@login_required
+def edit_user(request, org, username):
+    print('Opa')
+    form = EditUserForm(request.POST or None)
     
+    infos = {
+        'org': org,
+        'form': form,
+    }
+    
+    if request.method == 'POST':
+        if form.is_valid():
+            user = get_object_or_404(User, username=username)
+            
+            form_username = form.cleaned_data['username']
+            form_groups = form.cleaned_data['group']
+            
+            user.username.replace(form_username)
+            
+        
+        else:
+            return render(request, 'organizations/edit_user.html', infos, status=400)
+        
+        
+    return render(request, 'organizations/edit_user.html', infos)
